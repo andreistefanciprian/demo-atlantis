@@ -7,10 +7,47 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "cloud_assume_role" {
+  type    = bool
+  default = true
+}
+
+variable "arn_role" {
+  type    = string
+  default = ""
+}
+
+variable "extenal_id" {
+  type    = string
+  default = "smth"
+}
+
+variable "session_name" {
+  type    = string
+  default = "Jenkins"
+}
+variable "session_duration" {
+  type    = number
+  default = 3600
+}
+
+# terraform cloud provider
 provider "aws" {
-  version = "~> 3.0"
-  region  = var.region
-  profile = "default"
+  region = var.region
+
+  assume_role {
+    role_arn         = var.cloud_assume_role ? var.arn_role : null
+    external_id      = var.cloud_assume_role ? var.extenal_id : null
+    session_name     = var.cloud_assume_role ? var.session_name : null
+    duration_seconds = var.cloud_assume_role ? var.session_duration : null
+  }
+
+}
+
+# terraform backend
+terraform {
+  backend "s3" {
+  }
 }
 
 # create IAM MFA group
