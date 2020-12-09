@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  atlantis: 
+    image: runatlantis/atlantis
+    container_name: atlantis
+    ports:
+      - 4141:4141
+    env_file: ~/aws_creds
+    command: server --atlantis-url="$URL" --gh-user="$USERNAME" --gh-token="$TOKEN" --gh-webhook-secret="$SECRET" --repo-allowlist="$REPO_ALLOWLIST"
