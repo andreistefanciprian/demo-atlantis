@@ -100,10 +100,10 @@ resource "aws_ssm_parameter" "self_manage_group_name" {
   value = aws_iam_group.self_manage.name
 }
 
-# resource "null_resource" "example" {}
-
 # outputs
 output "self_manage_group_name" {
   description = "Name of IAM group"
   value       = aws_iam_group.self_manage.name
 }
+
+resource "null_resource" "example" {}
