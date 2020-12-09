@@ -25,19 +25,19 @@ data "aws_caller_identity" "current" {}
 resource "aws_iam_policy" "self_manage_key" {
   name        = "${var.name}_self_manage_key"
   description = "Allow users to manage their own access keys"
-  policy      = templatefile("tf_code/policies/self_manage_key.tpl", { aws_account = data.aws_caller_identity.current.account_id })
+  policy      = templatefile("policies/self_manage_key.tpl", { aws_account = data.aws_caller_identity.current.account_id })
 }
 
 resource "aws_iam_policy" "self_manage_password" {
   name        = "${var.name}_self_manage_password"
   description = "Allow users to change their own passwords"
-  policy      = templatefile("tf_code/policies/self_manage_password.tpl", { aws_account = data.aws_caller_identity.current.account_id })
+  policy      = templatefile("policies/self_manage_password.tpl", { aws_account = data.aws_caller_identity.current.account_id })
 }
 
 resource "aws_iam_policy" "self_manage_mfa" {
   name        = "${var.name}_self_manage_mfa"
   description = "Allow users to manage their own MFA"
-  policy      = templatefile("tf_code/policies/self_manage_mfa.tpl", { aws_account = data.aws_caller_identity.current.account_id })
+  policy      = templatefile("policies/self_manage_mfa.tpl", { aws_account = data.aws_caller_identity.current.account_id })
 }
 
 # associate IAM policies with IAM group
